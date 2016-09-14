@@ -163,13 +163,14 @@ test <- seats_vs_population3[136:180 ,]
 
 # And then build a model based on the training set
 set.seed(1234)
-mars_model <- earth(CombinedSeats ~., logPopulation, data = train)
+seats_vs_population2 <- seats_vs_population2[, 1:4]
+mars_model <- earth(CombinedSeats ~., logPopulation, data = seats_vs_population2)
 summary(mars_model)
 evimp(mars_model)
 
 # And check how well it fits data new to it. 
-predicted_mars <- predict(mars_model, test)
-comparison1 <- as.data.frame(cbind(test$CombinedSeats, predicted_mars))
+predicted_mars <- predict(mars_model, seats_vs_population2)
+comparison1 <- as.data.frame(cbind(seats_vs_population2$CombinedSeats, predicted_mars))
 colnames(comparison1) <- c("Seats", "Predicted")
 ggplot(comparison1, aes(Seats, Predicted)) +
   geom_point() +
@@ -243,3 +244,4 @@ rm(rmse5)
 # So far, it appears that the MARS model predicts best. while the results from the other approaches
 # are pretty comparabe. Finally, we arrived at a model that predicts the number of seats in the assembly
 # pretty well.
+
