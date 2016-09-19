@@ -156,12 +156,6 @@ median(seats_vs_population2$CombinedSeats) - median(predicted2)
 # attempt to build upon the single nls model.
 
 library(earth)
-
-# Lets split the data into a training and testing set, at a ratio 3/4 :1/4
-train <- seats_vs_population3[1:135 ,]
-test <- seats_vs_population3[136:180 ,]
-
-# And then build a model based on the training set
 set.seed(1234)
 seats_vs_population2 <- seats_vs_population2[, 1:4]
 mars_model <- earth(CombinedSeats ~., logPopulation, data = seats_vs_population2)
